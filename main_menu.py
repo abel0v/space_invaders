@@ -1,10 +1,14 @@
 import pygame
+import pygame_menu
+from typing import Tuple, Any
 
-<<<<<<<< HEAD:main_menu.py
 pygame.init()
 surface = pygame.display.set_mode((1200, 800))
 background = (0, 0, 0)
 gun = Gun(surface)
+
+pygame.init()
+surface = pygame.display.set_mode((600, 400))
 
 
 def set_difficulty(selected: Tuple, value: Any):
@@ -26,7 +30,8 @@ menu.add.selector('Сложность игры: ', [('Hard', 1), ('Easy', 3)], o
 menu.add.button('Играть!', start_the_game)
 menu.add.button('Выход', pygame_menu.events.EXIT)
 menu.mainloop(surface)
-========
+
+
 class game():
     def rungame():
         pygame.init()
@@ -51,5 +56,3 @@ class game():
             clock.tick(fps)
             pygame.display.flip()
         pygame.quit()
-       
->>>>>>>> origin/master:Main.py
