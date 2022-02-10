@@ -5,7 +5,7 @@ from typing import Tuple, Any
 pygame.init()
 surface = pygame.display.set_mode((1200, 800))
 background = (0, 0, 0)
-gun = Gun(surface)
+gun = Gun(sc)
 
 pygame.init()
 surface = pygame.display.set_mode((600, 400))

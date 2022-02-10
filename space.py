@@ -5,6 +5,8 @@ from gun import Gun
 from pygame.sprite import Group
 from monsters import Monsters
 
+
+
 def start():
     pygame.init()
     pygame.display.set_caption('space')
@@ -13,11 +15,13 @@ def start():
     gun = Gun(screen)
     bullets = Group()
     monsters = Group()
+    monsters2 = Group()
     controller.create_army(screen, monsters)
+
 
     while True:
         controller.events(screen, gun, bullets)
-        controller.screen_update(background, screen, gun, monsters, bullets)
+        controller.screen_update(background, screen, gun, monsters, monsters2, bullets)
         bullets.update()
         gun.gun_update()
 
