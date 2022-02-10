@@ -1,5 +1,6 @@
 import pygame, sys
 from bullet import Bullet
+from monsters import Monsters
 
 
 def events(screen, gun, bullets):
@@ -27,11 +28,31 @@ def events(screen, gun, bullets):
                 gun.leftmove = False
 
 
-def screen_update(background, screen, gun, bullets):
+def screen_update(background, screen, gun, monsters, bullets):
     screen.fill(background)
 
     for bullet in bullets.sprites():
         bullet.draw_bullet()
 
     gun.output()
+    monsters.draw()
     pygame.display.flip()
+
+
+def update_bullets(bullets):
+    bullets.update()
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
+
+
+def create_army(screen, monsters):
+    monster = Monsters(screen)
+    monster_width = monster.rect.width
+    number_ino_x = int((700 - 2 * monster_width) / monster_width)
+    for monster_number in range(number_ino_x):
+
+        ino = Monsters(screen)
+        ino.x = monster_width + monster_width * monster_number
+        ino.rect.x = ino.x
+        monsters.add(monster)

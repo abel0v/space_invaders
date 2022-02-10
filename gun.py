@@ -4,7 +4,7 @@ import pygame
 class Gun():
     def __init__(self, screen):
         self.screen = screen
-        self.image = pygame.image.load('space_gg.png')
+        self.image = pygame.image.load('data/space_gg.png')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.center = float(self.rect.centerx)
