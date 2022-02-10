@@ -3,7 +3,9 @@ import pygame_menu
 from typing import Tuple, Any
 
 pygame.init()
-surface = pygame.display.set_mode((600, 400))
+surface = pygame.display.set_mode((1200, 800))
+background = (0, 0, 0)
+gun = Gun(surface)
 
 
 def set_difficulty(selected: Tuple, value: Any):
@@ -13,6 +15,7 @@ def set_difficulty(selected: Tuple, value: Any):
 def start_the_game():
     global user_name
     print(f'{user_name.get_value()}, Do the job here!')
+    game.rungame()
     # если кинуть что-нибудь сюда, оно откроется в отдельном окне, тут будет основная игра
 
 
@@ -20,7 +23,7 @@ menu = pygame_menu.Menu('Space Invaders', 600, 400,
                         theme=pygame_menu.themes.THEME_DARK)
 
 user_name = menu.add.text_input('Имя:', default=' ')
-menu.add.selector('Сложность игры: ', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
+menu.add.selector('Сложность игры: ', [('Hard', 1), ('Easy', 3)], onchange=set_difficulty)
 menu.add.button('Играть!', start_the_game)
 menu.add.button('Выход', pygame_menu.events.EXIT)
 menu.mainloop(surface)
