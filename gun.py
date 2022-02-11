@@ -24,3 +24,6 @@ class Gun():
             self.center -= 1.5
 
         self.rect.centerx = self.center
+
+    def create_gun(self):
+        self.center = self.screen_rect.centerx

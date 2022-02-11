@@ -1,4 +1,5 @@
 import pygame
+import time
 
 
 class Monsters(pygame.sprite.Sprite):
@@ -15,3 +16,19 @@ class Monsters(pygame.sprite.Sprite):
 
     def draw(self):
         self.screen.blit(self.image, self.rect)
+
+    def right(self):
+        self.x += 0.1
+        self.rect.x = self.x
+
+    def left(self):
+        self.x -= 0.1
+        self.rect.x = self.x
+
+    def down(self):
+        self.y += 0.1
+        self.rect.y = self.y
+
+    def update(self):
+        self.down()
+

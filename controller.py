@@ -1,7 +1,7 @@
 import pygame, sys
 from bullet import Bullet
 from monsters import Monsters
-
+import time
 
 
 def events(screen, gun, bullets):
@@ -29,7 +29,7 @@ def events(screen, gun, bullets):
                 gun.leftmove = False
 
 
-def screen_update(background, screen, gun, monsters, monsters2, bullets):
+def screen_update(background, screen, gun, monsters, bullets):
     screen.fill(background)
 
     for bullet in bullets.sprites():
@@ -37,15 +37,23 @@ def screen_update(background, screen, gun, monsters, monsters2, bullets):
 
     gun.output()
     monsters.draw(screen)
-    monsters2.draw(screen)
     pygame.display.flip()
 
 
-def update_bullets(bullets):
+def update_bullets(monsters, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+    collisions = pygame.sprite.groupcollide(bullets, monsters, True, True)
+
+
+def checker(statistic, screen, gun, monsters, bullets):
+    screen_rect = screen.get_rect()
+    for monster in monsters.sprites():
+        if monster.rect.bottom >= screen_rect.bottom:
+            gun_kill(statistic, screen, gun, monsters, bullets)
+            break
 
 
 def create_army(screen, monsters):
@@ -62,3 +70,19 @@ def create_army(screen, monsters):
             monster.rect.x = monster.x
             monster.rect.y = monster.rect.height + 2 * monster.rect.height * row_number
             monsters.add(monster)
+
+
+def monsters_update(statistic, screen, gun, monsters, bullets):
+    monsters.update()
+    if pygame.sprite.spritecollideany(gun, monsters):
+        gun_kill(statistic, screen, gun, monsters, bullets)
+    checker(statistic, screen, gun, monsters, bullets)
+
+
+def gun_kill(statistic, screen, gun, monsters, bullets):
+    statistic.guns_left -= 1
+    monsters.empty()
+    bullets.empty()
+    gun.create_gun()
+    create_army(screen, monsters)
+    time.sleep(2)
