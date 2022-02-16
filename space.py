@@ -6,7 +6,7 @@ from pygame.sprite import Group
 from monsters import Monsters
 from statistic import Statistic
 import time
-
+from scores import Scores
 
 
 def start():
@@ -18,16 +18,14 @@ def start():
     bullets = Group()
     monsters = Group()
     statistic = Statistic()
+    sc = Scores(screen, statistic)
     controller.create_army(screen, monsters)
-
 
     while True:
         controller.events(screen, gun, bullets)
-        controller.screen_update(background, screen, gun, monsters, bullets)
-        bullets.update()
-        gun.gun_update()
-        controller.update_bullets(monsters, bullets)
-        controller.monsters_update(statistic, screen, gun, monsters, bullets)
-
-
-start()
+        if statistic.game_start:
+            controller.screen_update(background, screen, statistic, sc, gun, monsters, bullets)
+            bullets.update()
+            gun.gun_update()
+            controller.update_bullets(screen, statistic, sc, monsters, bullets)
+            controller.monsters_update(statistic, screen, sc, gun, monsters, bullets)

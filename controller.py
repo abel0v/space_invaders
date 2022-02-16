@@ -29,9 +29,9 @@ def events(screen, gun, bullets):
                 gun.leftmove = False
 
 
-def screen_update(background, screen, gun, monsters, bullets):
+def screen_update(background, screen, statistic, sc, gun, monsters, bullets):
     screen.fill(background)
-
+    sc.show_score()
     for bullet in bullets.sprites():
         bullet.draw_bullet()
 
@@ -40,19 +40,30 @@ def screen_update(background, screen, gun, monsters, bullets):
     pygame.display.flip()
 
 
-def update_bullets(monsters, bullets):
+def update_bullets(screen, statistic, sc, monsters, bullets):
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
     collisions = pygame.sprite.groupcollide(bullets, monsters, True, True)
 
+    if collisions:
+        for monsters in collisions.values():
+            statistic.score += 10 * len(monsters)
 
-def checker(statistic, screen, gun, monsters, bullets):
+        sc.image_scores()
+        check_main_score(statistic, sc)
+        sc.image_guns()
+    if len(monsters) == 0:
+        bullets.empty()
+        create_army(screen, monsters)
+
+
+def checker(statistic, screen, gun, sc, monsters, bullets):
     screen_rect = screen.get_rect()
     for monster in monsters.sprites():
         if monster.rect.bottom >= screen_rect.bottom:
-            gun_kill(statistic, screen, gun, monsters, bullets)
+            gun_kill(statistic, screen, sc, gun, monsters, bullets)
             break
 
 
@@ -72,17 +83,31 @@ def create_army(screen, monsters):
             monsters.add(monster)
 
 
-def monsters_update(statistic, screen, gun, monsters, bullets):
+def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     monsters.update()
     if pygame.sprite.spritecollideany(gun, monsters):
-        gun_kill(statistic, screen, gun, monsters, bullets)
-    checker(statistic, screen, gun, monsters, bullets)
+        gun_kill(statistic, screen, sc, gun, monsters, bullets)
+    checker(statistic, screen, sc, gun, monsters, bullets)
 
 
-def gun_kill(statistic, screen, gun, monsters, bullets):
-    statistic.guns_left -= 1
-    monsters.empty()
-    bullets.empty()
-    gun.create_gun()
-    create_army(screen, monsters)
-    time.sleep(2)
+def gun_kill(statistic, screen, sc,  gun, monsters, bullets):
+    if statistic.guns_left > 0:
+        statistic.guns_left -= 1
+        sc.image_guns()
+        monsters.empty()
+        bullets.empty()
+        gun.create_gun()
+        create_army(screen, monsters)
+        time.sleep(2)
+    else:
+        statistic.game_start = False
+        sys.exit()
+
+
+def check_main_score(statistic, sc):
+    if statistic.score > statistic.main_score:
+        statistic.main_score = statistic.score
+        sc.image_main_score()
+        with open('main_score.txt', 'w') as f:
+            f.write(str(statistic.main_score))
+

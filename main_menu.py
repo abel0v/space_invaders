@@ -2,7 +2,7 @@ import pygame
 import pygame_menu
 from pygame_menu import sound
 from typing import Tuple, Any
-from space import Hp
+import space
 
 pygame.init()
 pygame.display.set_caption('Space Invaders')
@@ -31,7 +31,7 @@ def start_the_game():
     global user_name
     print(f'{user_name.get_value()}, Do the job here!')
 
-    Hp.start()
+    space.start()
     # если кинуть что-нибудь сюда, оно откроется в отдельном окне, тут будет основная игра
 
 
