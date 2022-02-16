@@ -84,10 +84,10 @@ def create_army(screen, monsters):
 
 
 def monsters_update(statistic, screen, sc, gun, monsters, bullets):
-    monsters.update()
+    monsters.update(monsters)
     if pygame.sprite.spritecollideany(gun, monsters):
-        gun_kill(statistic, screen, sc, gun, monsters, bullets)
-    checker(statistic, screen, sc, gun, monsters, bullets)
+        gun_kill(statistic, screen, gun, monsters, bullets)
+    checker(statistic, screen, gun, monsters, bullets)
 
 
 def gun_kill(statistic, screen, sc,  gun, monsters, bullets):
