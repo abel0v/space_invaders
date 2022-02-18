@@ -87,7 +87,7 @@ def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     monsters.update(monsters)
     if pygame.sprite.spritecollideany(gun, monsters):
         gun_kill(statistic, screen, gun, monsters, bullets)
-    checker(statistic, screen, gun, monsters, bullets)
+    checker(statistic, screen, sc, gun, monsters, bullets)
 
 
 def gun_kill(statistic, screen, sc,  gun, monsters, bullets):
@@ -110,4 +110,3 @@ def check_main_score(statistic, sc):
         sc.image_main_score()
         with open('main_score.txt', 'w') as f:
             f.write(str(statistic.main_score))
-
