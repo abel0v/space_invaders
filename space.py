@@ -14,6 +14,7 @@ def start():
     pygame.display.set_caption('space')
     screen = pygame.display.set_mode((1200, 800))
     background = (0, 0, 0)
+    clock = pygame.time.Clock()
     gun = Gun(screen)
     bullets = Group()
     monsters = Group()
@@ -29,3 +30,4 @@ def start():
             gun.gun_update()
             controller.update_bullets(screen, statistic, sc, monsters, bullets)
             controller.monsters_update(statistic, screen, sc, gun, monsters, bullets)
+            clock.tick(120)
