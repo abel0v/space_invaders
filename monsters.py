@@ -13,6 +13,7 @@ class Monsters(pygame.sprite.Sprite):
         self.rect.y = self.rect.height
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
+        self.direction = 1
 
     def draw(self):
         self.screen.blit(self.image, self.rect)
@@ -28,7 +29,7 @@ class Monsters(pygame.sprite.Sprite):
     def down(self):
         self.rect.y += 71
 
-    def update(self):
+    def update(self, monsters):
         screen_rect = self.screen.get_rect() 
         for monster in monsters.sprites():
             if monster.rect.x < screen_rect.left:
@@ -42,5 +43,6 @@ class Monsters(pygame.sprite.Sprite):
             self.left()
         else:
             self.right()
+
 
 
