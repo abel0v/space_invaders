@@ -3,7 +3,6 @@ import pygame_menu
 from pygame_menu import sound
 from typing import Tuple, Any
 import space
-import sys
 
 pygame.init()
 pygame.display.set_caption('Space Invaders')
@@ -32,7 +31,6 @@ def set_difficulty(selected: Tuple, value: Any):
 def start_the_game():
     global user_name
     print(f'{user_name.get_value()}, Do the job here!')
-
     space.start()
 
 
@@ -55,6 +53,5 @@ menu.add.vertical_margin(5)
 menu.add.button('Play!', start_the_game, font_color=(240, 230, 140))
 menu.add.vertical_margin(10)
 menu.add.button('Exit', pygame_menu.events.EXIT, font_color=(240, 230, 140))
-
 menu.set_sound(engine, recursive=True)
 menu.mainloop(surface)
