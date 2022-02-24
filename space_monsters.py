@@ -15,15 +15,17 @@ class Monsters(pygame.sprite.Sprite):
         self.y = float(self.rect.y)
         self.direction = 1
 
+    speed = 0.1
+
     def draw(self):
         self.screen.blit(self.image, self.rect)
 
     def right(self):
-        self.x += 0.1
+        self.x += Monsters.speed
         self.rect.x = self.x
 
     def left(self):
-        self.x -= 0.1
+        self.x -= Monsters.speed
         self.rect.x = self.x
 
     def down(self):
@@ -43,6 +45,3 @@ class Monsters(pygame.sprite.Sprite):
             self.left()
         else:
             self.right()
-
-
-
