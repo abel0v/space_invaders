@@ -64,7 +64,7 @@ def update_bullets(screen, statistic, sc, monsters, bullets):
 def checker(statistic, screen, gun, sc, monsters, bullets):
     screen_rect = screen.get_rect()
     for monster in monsters.sprites():
-        if monster.rect.bottom >= screen_rect.bottom:
+        if monster.rect.bottom >= screen_rect.bottom - 46:
             gun_kill(statistic, screen, sc, gun, monsters, bullets)
             break
 
@@ -74,7 +74,7 @@ def create_army(screen, monsters):
     monster_width = monster.rect.width
     number_monster_x = int((1200 - 2 * monster_width) / monster_width)
     monster_height = monster.rect.height
-    number_monster_y = int((400 - 100 - 2 * monster_height) / monster_height) + 2
+    number_monster_y = int((400 - 100 - 2 * monster_height) / monster_height)
     for row_number in range(number_monster_y):
         for monster_number in range(number_monster_x):
             monster = Monsters(screen)
@@ -91,11 +91,10 @@ def set_diff(dif=1):
     else:
         Monsters.speed = 0.1
 
-
 def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     monsters.update(monsters)
     if pygame.sprite.spritecollideany(gun, monsters):
-        gun_kill(statistic, screen, gun, monsters, bullets)
+        gun_kill(statistic, screen, sc, gun, monsters, bullets)
     checker(statistic, screen, sc, gun, monsters, bullets)
 
 
@@ -109,9 +108,15 @@ def gun_kill(statistic, screen, sc, gun, monsters, bullets):
         create_army(screen, monsters)
         time.sleep(2)
     else:
+        img = pygame.image.load("data/game_over.png")
         statistic.game_start = False
+        screen.fill((0, 0, 0))
+        screeng = pygame.display.set_mode((1200, 800))
+        time.sleep(0.5)
+        screeng.blit(img, (400, 200))
+        pygame.display.flip()
+        time.sleep(5)
         sys.exit()
-
 
 def check_main_score(statistic, sc):
     if statistic.score > statistic.main_score:
