@@ -5,6 +5,8 @@ import time
 
 
 def events(screen, gun, bullets):
+    Sound1 = pygame.mixer.Sound('data/W.wav')
+    Sound1.set_volume(0.2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -19,7 +21,7 @@ def events(screen, gun, bullets):
             elif event.key == pygame.K_SPACE:
                 new_bullet = Bullet(screen, gun)
                 bullets.add(new_bullet)
-
+                Sound1.play()
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
@@ -81,11 +83,14 @@ def create_army(screen, monsters):
             monster.rect.x = monster.x
             monster.rect.y = monster.rect.height + 2 * monster.rect.height * row_number
             monsters.add(monster)
+
+
 def set_diff(dif=1):
     if dif == 1:
         Monsters.speed = 0.3
     else:
         Monsters.speed = 0.1
+
 
 def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     monsters.update(monsters)
@@ -94,7 +99,7 @@ def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     checker(statistic, screen, sc, gun, monsters, bullets)
 
 
-def gun_kill(statistic, screen, sc,  gun, monsters, bullets):
+def gun_kill(statistic, screen, sc, gun, monsters, bullets):
     if statistic.guns_left > 0:
         statistic.guns_left -= 1
         sc.image_guns()
