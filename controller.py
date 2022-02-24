@@ -1,13 +1,10 @@
 import pygame, sys
 from bullet import Bullet
-from monsters import Monsters
+from space_monsters import Monsters
 import time
 
 
 def events(screen, gun, bullets):
-    Sound1 = pygame.mixer.Sound('data/W.wav')
-    Sound2 = pygame.mixer.Sound('data/Portal.wav')
-    Sound1.set_volume(0.2)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -22,7 +19,7 @@ def events(screen, gun, bullets):
             elif event.key == pygame.K_SPACE:
                 new_bullet = Bullet(screen, gun)
                 bullets.add(new_bullet)
-                Sound1.play()
+
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_d:
@@ -75,7 +72,7 @@ def create_army(screen, monsters):
     monster_width = monster.rect.width
     number_monster_x = int((1200 - 2 * monster_width) / monster_width)
     monster_height = monster.rect.height
-    number_monster_y = int((400 - 100 - 2 * monster_height) / monster_height)
+    number_monster_y = int((400 - 100 - 2 * monster_height) / monster_height) + 2
     for row_number in range(number_monster_y):
         for monster_number in range(number_monster_x):
             monster = Monsters(screen)
@@ -84,16 +81,20 @@ def create_army(screen, monsters):
             monster.rect.x = monster.x
             monster.rect.y = monster.rect.height + 2 * monster.rect.height * row_number
             monsters.add(monster)
-
+def set_diff(dif=1):
+    if dif == 1:
+        Monsters.speed = 0.3
+    else:
+        Monsters.speed = 0.1
 
 def monsters_update(statistic, screen, sc, gun, monsters, bullets):
-    monsters.update()
+    monsters.update(monsters)
     if pygame.sprite.spritecollideany(gun, monsters):
-        gun_kill(statistic, screen, sc, gun, monsters, bullets)
+        gun_kill(statistic, screen, gun, monsters, bullets)
     checker(statistic, screen, sc, gun, monsters, bullets)
 
 
-def gun_kill(statistic, screen, sc, gun, monsters, bullets):
+def gun_kill(statistic, screen, sc,  gun, monsters, bullets):
     if statistic.guns_left > 0:
         statistic.guns_left -= 1
         sc.image_guns()
