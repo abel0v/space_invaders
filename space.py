@@ -1,9 +1,10 @@
 import pygame
 import sys
+
 import controller
 from gun import Gun
 from pygame.sprite import Group
-from monsters import Monsters
+from space_monsters import Monsters
 from statistic import Statistic
 import time
 from scores import Scores
@@ -11,7 +12,10 @@ from scores import Scores
 
 def start():
     pygame.init()
-    pygame.display.set_caption('space')
+    pygame.display.set_caption('Space Invaders')
+    pygame.mixer.music.load('data/untamed-land-948.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.2)
     screen = pygame.display.set_mode((1200, 800))
     background = (0, 0, 0)
     clock = pygame.time.Clock()
