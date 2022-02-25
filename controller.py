@@ -87,7 +87,7 @@ def create_army(screen, monsters):
 
 def set_diff(dif=1):
     if dif == 1:
-        Monsters.speed = 0.3
+        Monsters.speed = 0.5
     else:
         Monsters.speed = 0.1
 
@@ -109,10 +109,14 @@ def gun_kill(statistic, screen, sc, gun, monsters, bullets):
         time.sleep(2)
     else:
         img = pygame.image.load("data/game_over.png")
+
         statistic.game_start = False
+        Sound2 = pygame.mixer.Sound('data/New_zone.wav')
+        Sound2.set_volume(0.6)
         screen.fill((0, 0, 0))
         screeng = pygame.display.set_mode((1200, 800))
         time.sleep(0.5)
+        Sound2.play()
         screeng.blit(img, (400, 200))
         pygame.display.flip()
         time.sleep(5)
