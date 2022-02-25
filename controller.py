@@ -87,9 +87,9 @@ def create_army(screen, monsters):
 
 def set_diff(dif=1):
     if dif == 1:
-        Monsters.speed = 0.5
+        Monsters.speed = 0.7
     else:
-        Monsters.speed = 0.1
+        Monsters.speed = 0.3
 
 def monsters_update(statistic, screen, sc, gun, monsters, bullets):
     monsters.update(monsters)
