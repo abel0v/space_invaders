@@ -15,7 +15,7 @@ class Monsters(pygame.sprite.Sprite):
         self.y = float(self.rect.y)
         self.direction = 1
 
-    speed = 0.1
+    speed = 0.7
 
     def draw(self):
         self.screen.blit(self.image, self.rect)
