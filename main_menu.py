@@ -30,7 +30,6 @@ def set_difficulty(selected: Tuple, value: Any):
 # запуск игры
 def start_the_game():
     global user_name
-
     space.start()
     # если кинуть что-нибудь сюда, оно откроется в отдельном окне, тут будет основная игра
 
@@ -50,7 +49,7 @@ menu = pygame_menu.Menu('Space Invaders', 600, 400,
 
 
 user_name = menu.add.text_input('Name:', default=' ', font_color=(240, 230, 140))
-menu.add.selector('difficulty:', [('Hard', 1), ('Easy', 3)], onchange=set_difficulty, font_color=(240, 230, 140))
+menu.add.selector('Difficulty:', [('Hard', 1), ('Easy', 3)], onchange=set_difficulty, font_color=(240, 230, 140))
 menu.add.button('Play!', start_the_game, font_color=(240, 230, 140))
 menu.add.button('Exit', pygame_menu.events.EXIT, font_color=(240, 230, 140))
 menu.set_sound(engine, recursive=True)
