@@ -33,6 +33,9 @@ def events(screen, gun, bullets):
 
 def screen_update(background, screen, statistic, sc, gun, monsters, bullets):
     screen.fill(background)
+    for i in range(statistic.guns_left):
+        img = pygame.image.load("data/space_gg.png")
+        screen.blit(img, (20 + i * 80, 5))
     sc.show_score()
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -55,7 +58,6 @@ def update_bullets(screen, statistic, sc, monsters, bullets):
 
         sc.image_scores()
         check_main_score(statistic, sc)
-        sc.image_guns()
     if len(monsters) == 0:
         bullets.empty()
         create_army(screen, monsters)
@@ -84,7 +86,6 @@ def create_army(screen, monsters):
             monster.rect.y = monster.rect.height + 2 * monster.rect.height * row_number
             monsters.add(monster)
 
-
 def set_diff(dif=1):
     if dif == 1:
         Monsters.speed = 0.7
@@ -101,15 +102,12 @@ def monsters_update(statistic, screen, sc, gun, monsters, bullets):
 def gun_kill(statistic, screen, sc, gun, monsters, bullets):
     if statistic.guns_left > 0:
         statistic.guns_left -= 1
-        sc.image_guns()
         monsters.empty()
         bullets.empty()
-        gun.create_gun()
         create_army(screen, monsters)
         time.sleep(2)
     else:
         img = pygame.image.load("data/game_over.png")
-
         statistic.game_start = False
         Sound2 = pygame.mixer.Sound('data/New_zone.wav')
         Sound2.set_volume(0.6)
